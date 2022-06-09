@@ -1,4 +1,4 @@
-/* insert data into the owners */
+/* Create a table named owners then Insert data */
 INSERT INTO owners (id, full_name, age) 
 VALUES 
 (DEFAULT, 'Sam Smith', 34),
@@ -8,7 +8,7 @@ VALUES
 (DEFAULT, 'Dean Winchester', 14),
 (DEFAULT, 'Jodie Whittaker', 38);
 
-/* insert data into the owners */
+/*insert data into owner table */
 INSERT INTO species (id, name) 
 VALUES 
 (DEFAULT, 'Pokemon'),
