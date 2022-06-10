@@ -1,9 +1,18 @@
 /* Database schema to keep the structure of entire database. */
+
 CREATE TABLE animals (
-    id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,name VARCHAR NOT NULL,date_of_birth DATE NOT NULL,escape_attempts INT NOT NULL,neutered 
-BOOL NOT NULL,weight_kg DECIMAL(50,2) NOT NULL
+    id SERIAL,
+    name VARCHAR(100),
+    date_of_birth DATE,
+    escape_attempts INT,
+    neutered BOOLEAN,
+    weight_kg DECIMAL,    
+    PRIMARY KEY(id)
 );
-ALTER TABLE animals ADD species varchar;
+
+/* Add species column to animal table */
+ALTER TABLE animals
+ADD COLUMN species VARCHAR(100);
 
 /* Create owners table */
 CREATE TABLE owners (
@@ -28,3 +37,29 @@ ADD COLUMN species_id INT REFERENCES species (id);
 /* Add owners_id in animals table referenced from owners table */
 ALTER TABLE animals
 ADD COLUMN owners_id INT REFERENCES owners (id);
+
+/* Create vets table */
+CREATE TABLE vets (
+    id SERIAL,
+    name VARCHAR(100),
+    age INT,
+    date_of_graduation DATE,
+    PRIMARY KEY (id)
+);
+
+/* Create join/bridge table specializations */
+CREATE TABLE specializations (
+    vets_id INT NOT NULL,
+    species_id INT NOT NULL,
+    FOREIGN KEY (vets_id) REFERENCES vets (id) ON DELETE RESTRICT ON UPDATE CASCADE,
+    FOREIGN KEY (species_id) REFERENCES species (id) ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
+/* Create join/bridge table visits */
+CREATE TABLE visits (
+    vets_id INT NOT NULL,
+    animals_id INT NOT NULL,
+    date_of_visit DATE,
+    FOREIGN KEY (vets_id) REFERENCES vets (id) ON DELETE RESTRICT ON UPDATE CASCADE,
+    FOREIGN KEY (animals_id) REFERENCES animals (id) ON DELETE RESTRICT ON UPDATE CASCADE
+);
