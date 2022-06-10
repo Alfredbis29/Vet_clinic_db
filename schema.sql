@@ -55,7 +55,7 @@ CREATE TABLE specializations (
     FOREIGN KEY (species_id) REFERENCES species (id) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
-/* Create join/bridge table visits */
+/* Create join table */
 CREATE TABLE visits (
     vets_id INT NOT NULL,
     animals_id INT NOT NULL,
